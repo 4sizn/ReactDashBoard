@@ -84,10 +84,17 @@ export default class PostContainer extends Component {
     }
   };*/
 
+  //이미 렌더를 거친 상황
   componentDidMount() {
     this.fetchPostInfo(1);
   }
 
+  //fechpostinfo를 거치기 전 constroctor 시 this.state의 기본 값으로 render data 정리...
+  // 그래서 로그를 보면 page 1이 두번 찍혀져 있음
+  // Didmiount거치지전 render()로 <Post>의 기본값 전달(post id만 1이지 내부 body는 null상태)  
+  //=> DidMount로 fechpostinfo(1)로 데이터값 다시전달 (post id값 1에 대한 내부 데이터 fetching 완료) <Post>의 props데이터 다시 전달
+  //=> <Post> 내부에서는 props데이터가 변동(진짜 데이터 들어감 )이 되었음으로 WillReceiveMount()함수 전달 및 진짜값 setting.
+  
   render() {
     const { postId, fetching, post, comments, warningVisibility } = this.state;
     return (
